@@ -14,7 +14,7 @@ fn main() {
 
     // let l = Cons(1,Cons(2,Cons(3, Nil))); // Can't determine the size
     let l = Cons(1,Box::new(Cons(2,Box::new(Cons(3, Box::new(Nil)))))); // Can't determine the size w/o box
-    // Rust still doesn't know the exact size of List, it knows the size of ptr pointing to the list. The list size is usize.
+    // Rust doesn't care about size of variable stored in heap because heap is managed in runtime & dynamically allocated.
 
     let p = Bozy::new(5);
     let z = *p; // *p <=> *(p.deref())
@@ -98,8 +98,7 @@ fn rc_main() {
     let c = Cons(4,Rc::clone(&a)); // value will be dropped after it has 0 active reference.
     //Rc::clone() is preferred over a.clone() as former increases reference count, no deep copy.
     println!("{}", Rc::strong_count(&a));
-
 }
 
-// Single Value, Multiple Owners -> Rc<T>
+// Multiple Owners, immutable access
 // When different part use same var, no info who finishes last.
